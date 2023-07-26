@@ -1,13 +1,13 @@
 /*
-Inference for Llama-2 Transformer model in pure C.
+Quick and dirty JS output. Inference for Llama-2 Transformer model in pure to Emscripten tested 03
 
-Compile simply with:
-$ gcc -o run run.c
-Or if that doesn't work then:
-$ gcc -o run run.c -lm
-
-Then run with:
-$ ./run
+emcc -O3 run.c \
+  -o web/llama2.js \
+  -s EXPORTED_FUNCTIONS='["_main", "_main_loop", "_malloc", "_free"]' \
+  -s EXPORTED_RUNTIME_METHODS='["ccall"]' \
+  -s ALLOW_MEMORY_GROWTH=1 \
+  --preload-file model.bin \
+  --preload-file vocab.bin
 */
 
 #include <stdio.h>
